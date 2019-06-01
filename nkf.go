@@ -28,6 +28,9 @@ func guess(fileName string) (string, error) {
 
 func guessenc(fileName string) error {
 	enc, _ := charset.Lookup("utf-8")
+	if enc == nil {
+		return fmt.Errorf("Unsupported utf-8 charset")
+	}
 	f, err := ioutil.ReadFile(fileName)
 	if err != nil {
 		return err
