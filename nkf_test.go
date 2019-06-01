@@ -18,7 +18,7 @@ func TestGuess(t *testing.T) {
 		t.Errorf("test.utf-8.txt, err = %s", err.Error())
 		return
 	}
-	if err := guess(filepath.Join("testdata", "test.txt")); err != nil {
+	if _, err := guess(filepath.Join("testdata", "test.txt")); err != nil {
 		t.Errorf("test.utf-8.txt, err = %s", err.Error())
 		return
 	}
