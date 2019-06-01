@@ -1,9 +1,14 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"io/ioutil"
 	"os/exec"
 	"strings"
+
+	"golang.org/x/text/encoding/japanese"
+	"golang.org/x/text/transform"
 )
 
 func guess(fileName string) (string, error) {
@@ -19,6 +24,24 @@ func guess(fileName string) (string, error) {
 		}
 	}
 	return str, fmt.Errorf("Unsupported %s encoding", str)
+}
+
+func guessenc(fileName string) error {
+	f, err := ioutil.ReadFile(fileName)
+	if err != nil {
+		return err
+	}
+	var buf bytes.Buffer
+	transform.NewWriter(buf, japanese.UTF.NewEncoder())
+	_, err := ic.Write(body)
+	if err != nil {
+		return err
+	}
+	if err := ic.Close(); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func main() {
