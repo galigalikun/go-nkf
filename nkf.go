@@ -3,7 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"os/exec"
 	"strings"
 
@@ -23,15 +23,15 @@ func guess(fileName string) (string, error) {
 			return str, nil
 		}
 	}
-	return str, fmt.Errorf("Unsupported %s encoding", str)
+	return str, fmt.Errorf("unsupported %s encoding", str)
 }
 
 func guessenc(fileName string) error {
 	enc, _ := charset.Lookup("utf-8")
 	if enc == nil {
-		return fmt.Errorf("Unsupported utf-8 charset")
+		return fmt.Errorf("unsupported utf-8 charset")
 	}
-	f, err := ioutil.ReadFile(fileName)
+	f, err := os.ReadFile(fileName)
 	if err != nil {
 		return err
 	}
