@@ -20,7 +20,9 @@ jobs:
         persist-credentials: false
     - uses: actions/setup-go@v7
       with:
-        go-version-file: go.mod
+        # Use the latest patch release in the Go 1.27 series.
+        go-version: '1.27.x'
+        check-latest: true
 
     - name: Get dependencies
       run: |
